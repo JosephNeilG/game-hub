@@ -3,9 +3,10 @@ import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
 /** Represents a single game from the API. */
-interface Game {
+export interface Game {
   id: number;
   name: string;
+  background_image: string;
 }
 
 /** Response format for the GET /games API call. */
