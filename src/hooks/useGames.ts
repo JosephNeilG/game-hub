@@ -7,6 +7,7 @@ export interface Platform {
   name: string;
   slug: string;
 }
+
 /** Represents a single game from the API. */
 export interface Game {
   id: number;
