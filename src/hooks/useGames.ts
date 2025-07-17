@@ -1,5 +1,5 @@
+import type { GameQuery } from "../App";
 import useData from "./useData";
-import type { Genre } from "./useGenres";
 
 /** Represents a platform. */
 export interface Platform {
@@ -18,22 +18,20 @@ export interface Game {
 
 /**
  * Custom hook to fetch games list from API.
- * @param selectedGenre - The genre selected, null if none.
- * @param selectedPLatform - The platform selected, null if none.
+ * Accepts a gameQuery object with optional filters.
  */
 const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
+  gameQuery: GameQuery
 ) =>
   useData<Game>(
     "/games",
     {
       params: {
-        genres: selectedGenre?.id, // optional
-        platforms: selectedPlatform?.id, // optional
+        genres: gameQuery.genre?.id, // optional
+        platforms: gameQuery.platform?.id, // optional
       },
     },
-    [selectedGenre?.id, selectedPlatform?.id] // refetch if filters change
+    [gameQuery] // refetch if query object changes
   );
 
 export default useGames;
