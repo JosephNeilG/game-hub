@@ -18,17 +18,17 @@ export interface Game {
 
 /**
  * Custom hook to fetch games list from API.
- * Accepts a gameQuery object with optional filters.
+ * @param gameQuery - Contains selected genre, platform, and sort order.
+ * @returns Query result for games.
  */
-const useGames = (
-  gameQuery: GameQuery
-) =>
+const useGames = (gameQuery: GameQuery) =>
   useData<Game>(
     "/games",
     {
       params: {
         genres: gameQuery.genre?.id, // optional
         platforms: gameQuery.platform?.id, // optional
+        ordering: gameQuery.sortOrder,
       },
     },
     [gameQuery] // refetch if query object changes
