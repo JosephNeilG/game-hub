@@ -1,5 +1,4 @@
-import useData from "./useData";
-
+import genres from "../data/genres"
 /** Represents a single genre object. */
 export interface Genre {
   id: number;
@@ -11,6 +10,6 @@ export interface Genre {
  * Custom hook to fetch genres.
  * @returns Genre, loading, error state.
  */
-const useGenres = () => useData<Genre>("/genres");
+const useGenres = () => ({data: genres, isLoading: false, error: null});
 
 export default useGenres;
