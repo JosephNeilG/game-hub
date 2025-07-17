@@ -18,8 +18,22 @@ export interface Game {
 
 /**
  * Custom hook to fetch games list from API.
- * @param selectedGenre - The genre selected by user, null if none.
+ * @param selectedGenre - The genre selected, null if none.
+ * @param selectedPLatform - The platform selected, null if none.
  */
-const useGames = (selectedGenre: Genre | null) => useData<Game>("/games", {params: {genres: selectedGenre?.id}}, [selectedGenre?.id]);
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) =>
+  useData<Game>(
+    "/games",
+    {
+      params: {
+        genres: selectedGenre?.id, // optional
+        platforms: selectedPlatform?.id, // optional
+      },
+    },
+    [selectedGenre?.id, selectedPlatform?.id] // refetch if filters change
+  );
 
 export default useGames;
