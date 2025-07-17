@@ -18,7 +18,7 @@ export interface Game {
 
 /**
  * Custom hook to fetch games list from API.
- * @param gameQuery - Contains selected genre, platform, and sort order.
+ * @param gameQuery - Contains selected genre, platform, sort order, and search test..
  * @returns Query result for games.
  */
 const useGames = (gameQuery: GameQuery) =>
@@ -29,6 +29,7 @@ const useGames = (gameQuery: GameQuery) =>
         genres: gameQuery.genre?.id, // optional
         platforms: gameQuery.platform?.id, // optional
         ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText
       },
     },
     [gameQuery] // refetch if query object changes
