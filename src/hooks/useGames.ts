@@ -1,4 +1,5 @@
 import useData from "./useData";
+import type { Genre } from "./useGenres";
 
 /** Represents a platform. */
 export interface Platform {
@@ -17,8 +18,8 @@ export interface Game {
 
 /**
  * Custom hook to fetch games list from API.
- * @returns Game, loading, error state.
+ * @param selectedGenre - The genre selected by user, null if none.
  */
-const useGames = () => useData<Game>("/games");
+const useGames = (selectedGenre: Genre | null) => useData<Game>("/games", {params: {genres: selectedGenre?.id}}, [selectedGenre?.id]);
 
 export default useGames;

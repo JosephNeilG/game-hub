@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
-import { CanceledError } from "axios";
+import { CanceledError, type AxiosRequestConfig } from "axios";
 
 /** Generic response structure from the API. */
 interface FetchResponse<T> {
@@ -10,10 +10,12 @@ interface FetchResponse<T> {
 
 /**
  * Generic data-fetching hook.
- * @param endpoint - API path to fetch.
- * @returns Object with data array, loading status, and error message.
+ * @param endpoint - API endpoint.
+ * @param requestConfig - Optional Axios query param config.
+ * @param deps - Dependencies array to refetch when changed.
+ * @returns Object containing data, loading status, and error message.
  */
-const useData = <T>(endpoint: string) => {
+const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig, deps?: any[]) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const useData = <T>(endpoint: string) => {
 
     setLoading(true);
     apiClient
-      .get<FetchResponse<T>>(endpoint, { signal: controller.signal })
+      .get<FetchResponse<T>>(endpoint, { signal: controller.signal, ...requestConfig })
       .then((response) => {
         setData(response.data.results);
         setLoading(false);
@@ -35,7 +37,7 @@ const useData = <T>(endpoint: string) => {
       });
 
     return () => controller.abort();
-  }, []);
+  }, deps ? [...deps] : []);
 
   return { data, error, isLoading };
 };
