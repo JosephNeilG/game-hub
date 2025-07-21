@@ -10,7 +10,6 @@ interface Platform {
   slug: string;
 }
 
-/** Custom hook to fetch parent platform data. */
 const usePlatforms = () =>
   useQuery({
     queryKey: ["platforms"],
@@ -19,7 +18,7 @@ const usePlatforms = () =>
         .get<FetchResponse<Platform>>("/platforms/lists/parents")
         .then((response) => response.data),
     staleTime: 24 * 60 * 60 * 1000, //24h
-    initialData: { count: platforms.length, results: platforms },
+    initialData: { count: platforms.length, results: platforms }, // fallback data (static)
   });
 
 export default usePlatforms;
