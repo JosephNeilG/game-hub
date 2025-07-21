@@ -3,6 +3,7 @@ import axios, { type AxiosRequestConfig } from "axios";
 /** Generic response structure from the API. */
 export interface FetchResponse<T> {
   count: number;
+  next: string | null;
   results: T[];
 }
 
