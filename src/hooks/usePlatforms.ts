@@ -4,7 +4,7 @@ import apiClient from "../services/api-client";
 import type { FetchResponse } from "../services/api-client";
 
 /** Represents gaming platform. */
-interface Platform {
+export interface Platform {
   id: number;
   name: string;
   slug: string;
