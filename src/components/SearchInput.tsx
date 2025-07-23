@@ -1,20 +1,20 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useRef } from "react";
 import { BsSearch } from "react-icons/bs";
+import useGameQueryStore from "../store";
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-/** Search bar component that acepts input from user. */
-const SearchInput = ({ onSearch }: Props) => {
+const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
+
+  // get the function to update global search text in zustand store
+  const setSearchText = useGameQueryStore((s) => s.setSearchText);
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        if (ref.current) onSearch(ref.current.value);
+        // if ref is pointing to a valid input field, update global state
+        if (ref.current) setSearchText(ref.current.value);
       }}
     >
       <InputGroup>

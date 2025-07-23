@@ -7,23 +7,17 @@ import {
 } from "@chakra-ui/react";
 import { Fragment } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import type { GameQuery } from "../App";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
-interface Props {
-  gameQuery: GameQuery;
-}
-
 /**
  * Displays a grid of game cards, can be filtered by genre.
  * Fetches data using the gameQuery object.
  */
-const GameGrid = ({ gameQuery }: Props) => {
-  const { data, error, isLoading, fetchNextPage, hasNextPage } =
-    useGames(gameQuery);
+const GameGrid = () => {
+  const { data, error, isLoading, fetchNextPage, hasNextPage } = useGames();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   if (error)
@@ -31,7 +25,7 @@ const GameGrid = ({ gameQuery }: Props) => {
       <Center padding="10px">
         <Alert status="error" borderRadius="20px" width="auto">
           <AlertIcon />
-          {error}
+          {error.message}
         </Alert>
       </Center>
     );

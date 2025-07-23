@@ -1,22 +1,24 @@
 import {
-  HStack,
-  List,
-  ListItem,
-  Image,
   Button,
   Heading,
+  HStack,
+  Image,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
-import useGenres, { type Genre } from "../hooks/useGenres";
+import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
+import useGameQueryStore from "../store";
 import GenreCardSkeleton from "./GenreCardSkeleton";
 
-interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenreId?: number;
-}
-
-const GenreList = ({ selectedGenreId, onSelectGenre }: Props) => {
+const GenreList = () => {
+  // destructure API result
   const { data, isLoading, error } = useGenres();
+  // get selected genre from store
+  const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
+  // get setter function to update genre
+  const setSelectedGenreId = useGameQueryStore((s) => s.setGenreId);
+
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   if (error) null;
@@ -43,7 +45,7 @@ const GenreList = ({ selectedGenreId, onSelectGenre }: Props) => {
                 whiteSpace="normal"
                 textAlign="left"
                 fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
-                onClick={() => onSelectGenre(genre)}
+                onClick={() => setSelectedGenreId(genre.id)}
                 fontSize="lg"
                 variant="link"
               >
