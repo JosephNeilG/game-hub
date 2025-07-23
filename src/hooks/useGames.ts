@@ -16,10 +16,13 @@ export interface Game {
 }
 
 const useGames = () => {
+  // get current game query filters from zustand
   const gameQuery = useGameQueryStore((s) => s.gameQuery);
 
   return useInfiniteQuery<FetchResponse<Game>, Error>({
+    // unique cache key, also includes current filters
     queryKey: ["games", gameQuery],
+    // function to etch games; uses pageParam to load paginated results
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
         params: {
@@ -30,10 +33,12 @@ const useGames = () => {
           page: pageParam,
         },
       }),
+    // determine the next page load if available
     getNextPageParam: (lastPage, allPages) => {
+      // if API response has a next page link, return next page number
       return lastPage.next ? allPages.length + 1 : undefined;
     },
-    staleTime: ms("24h"), //24hrs
+    staleTime: ms("24h"), // cache data for 24h
   });
 };
 
