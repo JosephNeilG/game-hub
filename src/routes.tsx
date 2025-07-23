@@ -9,15 +9,15 @@ const router = createBrowserRouter([
   {
     path: "/", // base path
     element: <Layout />, // layout with navbar and <Outlet/>
-    errorElement: <ErrorPage />, // shown on route errors
+    errorElement: <ErrorPage />, // Catches navigation/rendering errors
     children: [
       {
         index: true, // root page
         element: <HomePage />, // show homepage when at "/"
       },
       {
-        path: "games/:id", // dynamic, shows game id
-        element: <GameDetailPage />, // shows game detail
+        path: "games/:slug", // dynamic, shows game slug
+        element: <GameDetailPage />, // component for each game detail
       },
     ],
   },

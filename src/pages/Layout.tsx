@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 import { Outlet } from "react-router-dom";
 
@@ -7,8 +8,10 @@ const Layout = () => {
     <>
       {/* Always show navbar at top */}
       <NavBar />
-      {/* Dynamic placeholder were route-specific pages get rendered */}
-      <Outlet />
+      <Box padding={5}>
+        {/* Dynamic placeholder were route-specific pages get rendered */}
+        <Outlet />
+      </Box>
     </>
   );
 };

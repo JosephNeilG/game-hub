@@ -3,6 +3,7 @@ import { Card, CardBody, Heading, HStack, Image } from "@chakra-ui/react";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
+import { Link } from "react-router-dom";
 
 /** Game to display inside the card. */
 interface Props {
@@ -21,7 +22,10 @@ const GameCard = ({ game }: Props) => {
           />
           <CriticScore score={game.metacritic} />
         </HStack>
-        <Heading fontSize="2xl">{game.name}</Heading>
+        <Heading fontSize="2xl">
+          {/* navigates to /games/game-slug when clicked */}
+          <Link to={`/games/${game.slug}`}>{game.name}</Link>
+        </Heading>
       </CardBody>
     </Card>
   );

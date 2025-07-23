@@ -1,0 +1,14 @@
+import { useQuery } from "@tanstack/react-query";
+import APIClient from "../services/api-client";
+import type { Game } from "./useGames";
+
+const apiClient = new APIClient<Game>("/games");
+
+/** Handles async fetch and caching for game data */
+const useGame = (slug: string) =>
+  useQuery({
+    queryKey: ["games", slug],
+    queryFn: () => apiClient.get(slug),
+  });
+
+export default useGame;
