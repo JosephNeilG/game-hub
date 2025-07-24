@@ -8,7 +8,7 @@ interface Props {
 const GameTrailer = ({ gameId }: Props) => {
   // fetch trailers using custom hook
   const { data, isLoading, error } = useTrailers(gameId);
-  data?.count !== 0 ? console.log(data) : console.log("no trailer available");
+  //   data?.count !== 0 ? console.log(data) : console.log("no trailer available");
 
   if (isLoading) return null;
 
